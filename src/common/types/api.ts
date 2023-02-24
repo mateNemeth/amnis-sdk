@@ -36,6 +36,6 @@ export declare type Collection<T> = {
 }
 
 export declare type PaginationQuery = {
-  itemsPerPage: number;
-  page: number;
+  itemsPerPage?: number;
+  page?: number;
 }
