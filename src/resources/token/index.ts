@@ -8,12 +8,12 @@ export class Token extends Base {
     return this.request(this.urlBuilder.buildUrl([this.apiRoute]), {
       method: 'POST',
       body: JSON.stringify({
-        grant_type: "client_credentials",
+        grant_type: 'client_credentials',
         client_id: this.client_id,
         client_secret: this.client_secret
       }),
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     });
   }
