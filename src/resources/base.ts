@@ -20,7 +20,7 @@ export abstract class Base {
       if (response.ok) {
         return response.json();
       }
-      throw new Error(response.statusText);
+      return response;
     });
   }
 }
