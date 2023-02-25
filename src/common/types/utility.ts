@@ -1,7 +1,7 @@
 export type StringOrNumber = string | number;
 
-type oneToNine = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 type zeroToNine = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+type oneToNine = Exclude<zeroToNine, 0>;
 /**
  * Years
  */
