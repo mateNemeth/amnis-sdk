@@ -2,8 +2,8 @@ import {
   IResourceManager,
   ResourceManager
 } from '../../common/classes/resource';
-import { Config } from '../../common/types/config';
 import { Base } from '../base';
+import { TokenService } from '../token';
 import { Transaction, TransactionFilters } from './types';
 
 export class Transactions
@@ -13,22 +13,19 @@ export class Transactions
   protected apiRoute = 'transactions';
   private resourceManager: ResourceManager<Transaction>;
 
-  constructor(config: Config) {
-    super(config);
-    this.resourceManager = new ResourceManager<Transaction>(config);
+  constructor(tokenService: TokenService) {
+    super(tokenService);
+    this.resourceManager = new ResourceManager<Transaction>(tokenService);
   }
-
-  public getResourceById(token: string, id: number) {
+  public getResourceById(id: number) {
     return this.resourceManager.getResourceById(
-      this.urlBuilder.buildUrl([this.apiRoute, id]),
-      token
+      this.urlBuilder.buildUrl([this.apiRoute, id])
     );
   }
 
-  public getAllResources(token: string, filters?: TransactionFilters) {
+  public getAllResources(filters?: TransactionFilters) {
     return this.resourceManager.getAllResources(
-      this.urlBuilder.buildUrl([this.apiRoute], filters),
-      token
+      this.urlBuilder.buildUrl([this.apiRoute], filters)
     );
   }
 }

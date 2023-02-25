@@ -6,7 +6,7 @@ export class Info extends Base {
   protected apiRoute = 'info';
 
   public getInfo(token: string) {
-    return this.request<Resource<Information>>(
+    return this.apiClient.request<Resource<Information>>(
       this.urlBuilder.buildUrl([this.apiRoute]),
       {
         headers: {

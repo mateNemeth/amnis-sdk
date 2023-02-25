@@ -1,4 +1,4 @@
-import { StringOrNumber } from '../types/utility';
+import { AnyType, StringOrNumber } from '../types/utility';
 
 export class URLBuilder {
   protected baseUrl = 'https://api.stage.transfer4sme.ch/api';
@@ -10,7 +10,7 @@ export class URLBuilder {
    * @param params Optional query params as key-value pairs (object). Undefined values will be removed.
    * @returns URL object, with path and query params set
    */
-  public buildUrl(path: StringOrNumber[], params?: Record<string, any>) {
+  public buildUrl(path: StringOrNumber[], params?: Record<string, AnyType>) {
     const url = new URL(`${this.baseUrl}/${path.join('/')}`);
     if (params) {
       const newParams = this.removeEmpty(params);
@@ -20,7 +20,7 @@ export class URLBuilder {
     return url;
   }
 
-  private removeEmpty(obj: Record<string, any>): Record<string, any> {
+  private removeEmpty(obj: Record<string, AnyType>): Record<string, AnyType> {
     return Object.entries(obj)
       .filter(([_, v]) => v !== undefined)
       .reduce(
