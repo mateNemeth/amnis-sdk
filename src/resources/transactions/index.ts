@@ -1,9 +1,9 @@
+import { ApiClient } from '../../common/classes/apiClient';
 import {
   IResourceManager,
   ResourceManager
 } from '../../common/classes/resource';
 import { Base } from '../base';
-import { TokenService } from '../token';
 import { Transaction, TransactionFilters } from './types';
 
 export class Transactions
@@ -13,9 +13,9 @@ export class Transactions
   protected apiRoute = 'transactions';
   private resourceManager: ResourceManager<Transaction>;
 
-  constructor(tokenService: TokenService) {
-    super(tokenService);
-    this.resourceManager = new ResourceManager<Transaction>(tokenService);
+  constructor(apiClient: ApiClient) {
+    super(apiClient);
+    this.resourceManager = new ResourceManager<Transaction>(apiClient);
   }
   public getResourceById(id: number) {
     return this.resourceManager.getResourceById(

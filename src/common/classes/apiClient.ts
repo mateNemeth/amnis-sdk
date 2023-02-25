@@ -2,12 +2,13 @@ import jwtDecode from 'jwt-decode';
 import { TokenService } from '../../resources/token';
 import { AccessToken } from '../../resources/token/types';
 import { ApiResponse } from '../types/api';
-import { URLBuilder } from './urlBuilder';
 
 export class ApiClient {
   private tokenService: TokenService;
-  private accessToken?: AccessToken;
-  public urlBuilder = new URLBuilder();
+  private _accessToken?: AccessToken;
+  public get accessToken(): AccessToken | undefined {
+    return this._accessToken;
+  }
 
   constructor(tokenService: TokenService) {
     this.tokenService = tokenService;
@@ -15,13 +16,13 @@ export class ApiClient {
   }
 
   private async init() {
-    this.accessToken = await this.tokenService.createToken();
+    this._accessToken = await this.tokenService.createToken();
   }
 
   private isTokenValid(): boolean {
-    if (!this.accessToken?.access_token) return false;
+    if (!this._accessToken?.access_token) return false;
 
-    const decoded = jwtDecode<{ exp: number }>(this.accessToken?.access_token);
+    const decoded = jwtDecode<{ exp: number }>(this._accessToken?.access_token);
 
     if (!decoded) return false;
 
@@ -47,7 +48,7 @@ export class ApiClient {
       ...options,
       headers: {
         ...options?.headers,
-        Authorization: `Bearer ${this.accessToken?.access_token}`
+        Authorization: `Bearer ${this._accessToken?.access_token}`
       }
     }).then((response) => {
       if (response.ok) {

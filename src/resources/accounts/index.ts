@@ -1,18 +1,18 @@
+import { ApiClient } from '../../common/classes/apiClient';
 import {
   IResourceManager,
   ResourceManager
 } from '../../common/classes/resource';
 import { Base } from '../base';
-import { TokenService } from '../token';
 import { Account, AccountFilters } from './types';
 
 export class Accounts extends Base implements IResourceManager<Account> {
   protected apiRoute = 'accounts';
   private resourceManager: ResourceManager<Account>;
 
-  constructor(tokenService: TokenService) {
-    super(tokenService);
-    this.resourceManager = new ResourceManager<Account>(tokenService);
+  constructor(apiClient: ApiClient) {
+    super(apiClient);
+    this.resourceManager = new ResourceManager<Account>(apiClient);
   }
 
   public getResourceById(id: number) {

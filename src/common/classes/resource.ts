@@ -2,8 +2,8 @@ import { Base } from '../../resources/base';
 import { ApiResponse, Collection, Resource } from '../types/api';
 
 export declare interface IResourceManager<T> {
-  getResourceById: (id: number) => Promise<T>;
-  getAllResources: (filters?: any) => Promise<Collection<T>>;
+  getResourceById: (id: number) => Promise<ApiResponse<T>>;
+  getAllResources: (filters?: any) => Promise<ApiResponse<Collection<T>>>;
 }
 
 export class ResourceManager<T> extends Base {
