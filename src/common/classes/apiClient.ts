@@ -1,22 +1,63 @@
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse
+} from 'axios';
 import jwtDecode from 'jwt-decode';
 import { TokenService } from '../../resources/token';
 import { AccessToken } from '../../resources/token/types';
-import { ApiResponse } from '../types/api';
+import { AnyType } from '../types/utility';
+
+const headers: Readonly<Record<string, string | boolean>> = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Credentials': true,
+  'X-Requested-With': 'XMLHttpRequest'
+};
 
 export class ApiClient {
+  private instance: AxiosInstance | null = null;
   private tokenService: TokenService;
   private _accessToken?: AccessToken;
-  public get accessToken(): AccessToken | undefined {
+  get accessToken(): AccessToken | undefined {
     return this._accessToken;
   }
 
   constructor(tokenService: TokenService) {
     this.tokenService = tokenService;
-    this.init();
+    this.initToken();
   }
 
-  private async init() {
+  private get http(): AxiosInstance {
+    return this.instance !== null ? this.instance : this.initHttp();
+  }
+
+  private async initToken() {
     this._accessToken = await this.tokenService.createToken();
+  }
+
+  private initHttp() {
+    const http = axios.create({
+      headers,
+      withCredentials: true
+    });
+
+    http.interceptors.request.use(async (config) => {
+      if (!this._accessToken || !this.isTokenValid()) {
+        await this.initToken();
+      }
+
+      config.headers.Authorization = `Bearer ${this._accessToken?.access_token}`;
+      return config;
+    });
+
+    http.interceptors.response.use(
+      (response) => response.data,
+      (error: AxiosError) => error.response?.data
+    );
+
+    this.instance = http;
+    return http;
   }
 
   private isTokenValid(): boolean {
@@ -36,25 +77,40 @@ export class ApiClient {
     return true;
   }
 
-  public async request<T>(
+  request<T = AnyType, R = AxiosResponse<T>>(
     url: URL,
-    options?: RequestInit
-  ): Promise<ApiResponse<T>> {
-    if (!this.isTokenValid()) {
-      await this.init();
-    }
+    config: AxiosRequestConfig = {}
+  ): Promise<R> {
+    return this.http.request({ ...config, url: url.toString() });
+  }
 
-    return fetch(url, {
-      ...options,
-      headers: {
-        ...options?.headers,
-        Authorization: `Bearer ${this._accessToken?.access_token}`
-      }
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response;
-    });
+  get<T = AnyType, R = AxiosResponse<T>>(
+    url: URL,
+    config?: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.get<T, R>(url.toString(), config);
+  }
+
+  post<T = AnyType, R = AxiosResponse<T>>(
+    url: URL,
+    data?: T,
+    config?: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.post<T, R>(url.toString(), data, config);
+  }
+
+  put<T = AnyType, R = AxiosResponse<T>>(
+    url: URL,
+    data?: T,
+    config?: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.put<T, R>(url.toString(), data, config);
+  }
+
+  delete<T = AnyType, R = AxiosResponse<T>>(
+    url: URL,
+    config?: AxiosRequestConfig
+  ): Promise<R> {
+    return this.http.delete<T, R>(url.toString(), config);
   }
 }

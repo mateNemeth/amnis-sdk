@@ -37,6 +37,13 @@ export declare type Collection<T> = {
   'hydra:view'?: HydraView;
 };
 
+export declare type ApiError = {
+  '@context': '/contexts/Error';
+  '@type': 'hydra:Error';
+  'hydra:title': string;
+  'hydra:description': string;
+};
+
 export declare type PaginationQuery = {
   itemsPerPage?: number;
   page?: number;

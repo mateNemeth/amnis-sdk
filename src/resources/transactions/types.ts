@@ -31,4 +31,5 @@ export declare type TransactionFilters = PaginationQuery & {
   abs_amount?: LesserAndGreaterThanFilter<number>;
   createdAt?: LesserAndGreaterThanFilter<DateString>;
   executionDate?: LesserAndGreaterThanFilter<DateString>;
+  lol?: string;
 };

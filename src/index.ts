@@ -12,7 +12,7 @@ export class AmnisClient {
   accounts: Accounts;
   transactions: Transactions;
 
-  public get accessToken(): AccessToken | undefined {
+  get accessToken(): AccessToken | undefined {
     return this.apiClient.accessToken;
   }
 

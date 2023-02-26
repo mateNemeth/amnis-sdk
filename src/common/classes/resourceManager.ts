@@ -16,14 +16,12 @@ export abstract class ResourceManager<
   }
 
   async getAllResources(filters?: F): Promise<ApiResponse<Collection<T>>> {
-    return this.apiClient.request(
+    return this.apiClient.get(
       this.urlBuilder.buildUrl([this.apiRoute], filters)
     );
   }
 
   async getResourceById(id: number): Promise<ApiResponse<Resource<T>>> {
-    return this.apiClient.request(
-      this.urlBuilder.buildUrl([this.apiRoute, id])
-    );
+    return this.apiClient.get(this.urlBuilder.buildUrl([this.apiRoute, id]));
   }
 }

@@ -10,7 +10,7 @@ export class URLBuilder {
    * @param params Optional query params as key-value pairs (object). Undefined values will be removed.
    * @returns URL object, with path and query params set
    */
-  public buildUrl(path: StringOrNumber[], params?: Record<string, AnyType>) {
+  buildUrl(path: StringOrNumber[], params?: Record<string, AnyType>) {
     const url = new URL(`${this.baseUrl}/${path.join('/')}`);
     if (params) {
       const newParams = this.removeEmpty(params);
