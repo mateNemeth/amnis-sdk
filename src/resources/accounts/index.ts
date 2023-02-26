@@ -1,26 +1,6 @@
-import { ApiClient } from '../../common/classes/apiClient';
-import { ResourceManager } from '../../common/classes/resource';
-import { Base } from '../base';
+import { ResourceManager } from '../../common/classes/resourceManager';
 import { Account, AccountFilters } from './types';
 
-export class Accounts extends Base {
+export class Accounts extends ResourceManager<Account, AccountFilters> {
   protected apiRoute = 'accounts';
-  private resourceManager: ResourceManager<Account>;
-
-  constructor(apiClient: ApiClient) {
-    super(apiClient);
-    this.resourceManager = new ResourceManager<Account>(apiClient);
-  }
-
-  public getResourceById(id: number) {
-    return this.resourceManager.getResourceById(
-      this.urlBuilder.buildUrl([this.apiRoute, id])
-    );
-  }
-
-  public getAllResources(filters?: AccountFilters) {
-    return this.resourceManager.getAllResources(
-      this.urlBuilder.buildUrl([this.apiRoute], filters)
-    );
-  }
 }

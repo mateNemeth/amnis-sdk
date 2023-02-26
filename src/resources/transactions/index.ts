@@ -1,25 +1,9 @@
-import { ApiClient } from '../../common/classes/apiClient';
-import { ResourceManager } from '../../common/classes/resource';
-import { Base } from '../base';
+import { ResourceManager } from '../../common/classes/resourceManager';
 import { Transaction, TransactionFilters } from './types';
 
-export class Transactions extends Base {
+export class Transactions extends ResourceManager<
+  Transaction,
+  TransactionFilters
+> {
   protected apiRoute = 'transactions';
-  private resourceManager: ResourceManager<Transaction>;
-
-  constructor(apiClient: ApiClient) {
-    super(apiClient);
-    this.resourceManager = new ResourceManager<Transaction>(apiClient);
-  }
-  public getResourceById(id: number) {
-    return this.resourceManager.getResourceById(
-      this.urlBuilder.buildUrl([this.apiRoute, id])
-    );
-  }
-
-  public getAllResources(filters?: TransactionFilters) {
-    return this.resourceManager.getAllResources(
-      this.urlBuilder.buildUrl([this.apiRoute], filters)
-    );
-  }
 }
