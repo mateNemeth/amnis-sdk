@@ -1,15 +1,9 @@
 import { ApiClient } from '../../common/classes/apiClient';
-import {
-  IResourceManager,
-  ResourceManager
-} from '../../common/classes/resource';
+import { ResourceManager } from '../../common/classes/resource';
 import { Base } from '../base';
 import { Transaction, TransactionFilters } from './types';
 
-export class Transactions
-  extends Base
-  implements IResourceManager<Transaction>
-{
+export class Transactions extends Base {
   protected apiRoute = 'transactions';
   private resourceManager: ResourceManager<Transaction>;
 

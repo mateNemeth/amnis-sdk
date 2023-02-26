@@ -1,12 +1,9 @@
 import { ApiClient } from '../../common/classes/apiClient';
-import {
-  IResourceManager,
-  ResourceManager
-} from '../../common/classes/resource';
+import { ResourceManager } from '../../common/classes/resource';
 import { Base } from '../base';
 import { Account, AccountFilters } from './types';
 
-export class Accounts extends Base implements IResourceManager<Account> {
+export class Accounts extends Base {
   protected apiRoute = 'accounts';
   private resourceManager: ResourceManager<Account>;
 

@@ -6,7 +6,7 @@ export class TokenService {
   private client_id: string;
   private client_secret: string;
   private urlBuilder = new URLBuilder();
-  protected apiRoute = 'token';
+  private apiRoute = 'token';
 
   constructor(config: Config) {
     this.client_id = config.client_id;
@@ -28,7 +28,7 @@ export class TokenService {
       if (r.ok) {
         return r.json();
       }
-      throw r;
+      return r;
     });
   }
 }
