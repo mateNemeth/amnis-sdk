@@ -1,5 +1,4 @@
 import { Base } from '../../resources/base';
-import { ApiResponse, Collection, Resource } from '../types/api';
 import { IResourceManager } from '../types/resources';
 import { AnyType } from '../types/utility';
 import { ApiClient } from './apiClient';
@@ -15,13 +14,13 @@ export abstract class ResourceManager<
     super(apiClient);
   }
 
-  async getAllResources(filters?: F): Promise<ApiResponse<Collection<T>>> {
+  async getAllResources(filters?: F): Promise<T[]> {
     return this.apiClient.get(
       this.urlBuilder.buildUrl([this.apiRoute], filters)
     );
   }
 
-  async getResourceById(id: number): Promise<ApiResponse<Resource<T>>> {
+  async getResourceById(id: number): Promise<T> {
     return this.apiClient.get(this.urlBuilder.buildUrl([this.apiRoute, id]));
   }
 }

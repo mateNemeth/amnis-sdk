@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { HEADERS } from '../../common/classes/apiClient';
 import { URLBuilder } from '../../common/classes/urlBuilder';
 import { Config } from '../../common/types/config';
 import { AccessToken } from './types';
@@ -14,21 +16,18 @@ export class TokenService {
   }
 
   async createToken(): Promise<AccessToken> {
-    return fetch(this.urlBuilder.buildUrl([this.apiRoute]), {
-      method: 'POST',
-      body: JSON.stringify({
+    const response = await axios.post<AccessToken>(
+      this.urlBuilder.buildUrl([this.apiRoute]).toString(),
+      {
         grant_type: 'client_credentials',
         client_id: this.client_id,
         client_secret: this.client_secret
-      }),
-      headers: {
-        'Content-Type': 'application/json'
+      },
+      {
+        headers: HEADERS
       }
-    }).then((r) => {
-      if (r.ok) {
-        return r.json();
-      }
-      return r;
-    });
+    );
+
+    return response.data;
   }
 }

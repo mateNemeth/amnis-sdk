@@ -9,8 +9,9 @@ import { TokenService } from '../../resources/token';
 import { AccessToken } from '../../resources/token/types';
 import { AnyType } from '../types/utility';
 
-const headers: Readonly<Record<string, string | boolean>> = {
+export const HEADERS: Readonly<Record<string, string | boolean>> = {
   'Content-Type': 'application/json',
+  Accept: 'application/json',
   'Access-Control-Allow-Credentials': true,
   'X-Requested-With': 'XMLHttpRequest'
 };
@@ -38,7 +39,7 @@ export class ApiClient {
 
   private initHttp() {
     const http = axios.create({
-      headers,
+      headers: HEADERS,
       withCredentials: true
     });
 
