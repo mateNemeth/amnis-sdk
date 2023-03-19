@@ -1,7 +1,7 @@
 import { AnyType, StringOrNumber } from '../types/utility';
 
 export class URLBuilder {
-  protected baseUrl = 'https://api.stage.transfer4sme.ch/api';
+  protected baseUrl = 'https://api.amnistreasury.com/api';
 
   /**
    * Creates an URL object with the given arguments

@@ -1,7 +1,7 @@
 {
   "name": "@maten/amnis-sdk",
   "version": "0.0.1",
-  "description": "Unofficial SDK for Amnis Treasury Services AG's public API",
+  "description": "Javascript (Node & Web) SDK for Amnis Treasury's public API",
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "unpkg": "dist/index.umd.js",
