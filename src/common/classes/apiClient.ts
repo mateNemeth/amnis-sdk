@@ -85,19 +85,16 @@ export class ApiClient {
     return this.http.request({ ...config, url: url.toString() });
   }
 
-  get<T = AnyType, R = AxiosResponse<T>>(
-    url: URL,
-    config?: AxiosRequestConfig
-  ): Promise<R> {
-    return this.http.get<T, R>(url.toString(), config);
+  get<T = AnyType>(url: URL, config?: AxiosRequestConfig): Promise<T> {
+    return this.http.get(url.toString(), config);
   }
 
-  post<T = AnyType, R = AxiosResponse<T>>(
+  post<T = AnyType>(
     url: URL,
     data?: T,
     config?: AxiosRequestConfig
-  ): Promise<R> {
-    return this.http.post<T, R>(url.toString(), data, config);
+  ): Promise<T> {
+    return this.http.post(url.toString(), data, config);
   }
 
   put<T = AnyType, R = AxiosResponse<T>>(
@@ -105,13 +102,10 @@ export class ApiClient {
     data?: T,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return this.http.put<T, R>(url.toString(), data, config);
+    return this.http.put(url.toString(), data, config);
   }
 
-  delete<T = AnyType, R = AxiosResponse<T>>(
-    url: URL,
-    config?: AxiosRequestConfig
-  ): Promise<R> {
-    return this.http.delete<T, R>(url.toString(), config);
+  delete<T = AnyType>(url: URL, config?: AxiosRequestConfig): Promise<T> {
+    return this.http.delete(url.toString(), config);
   }
 }
