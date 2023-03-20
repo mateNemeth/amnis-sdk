@@ -9,9 +9,13 @@
   "scripts": {
     "build": "rm -rf dist && microbundle --no-compress --tsconfig tsconfig.json --no-sourcemap"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mateNemeth/amnis-sdk"
+  },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Mate Nemeth",
+  "license": "MIT",
   "files": [
     "dist"
   ],
