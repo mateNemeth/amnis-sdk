@@ -12,8 +12,12 @@ export declare type LesserAndGreaterThanFilter<T extends number | DateString> =
   };
 
 export declare interface IResourceManager<T, F> {
-  getResourceById: (id: number) => Promise<T>;
-  getAllResources: (filters?: F) => Promise<Collection<T>>;
+  getResourceById: (
+    id: number
+  ) => Promise<ApiSuccessResponse<T> | ApiErrorResponse>;
+  getAllResources: (
+    filters?: F
+  ) => Promise<ApiSuccessResponse<Collection<T>> | ApiErrorResponse>;
 }
 
 export declare type PaginationParameters = {
@@ -24,6 +28,17 @@ export declare type PaginationParameters = {
 };
 
 export declare type Collection<T> = {
+  status: 'success';
   data: T[];
   pagination: PaginationParameters;
+};
+
+export declare type ApiErrorResponse = {
+  status: 'error';
+  detail: string;
+  title: string;
+};
+
+export declare type ApiSuccessResponse<T> = T & {
+  status: 'success';
 };
