@@ -1,12 +1,8 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import jwtDecode from 'jwt-decode';
 import { TokenService } from '../../resources/token';
 import { AccessToken } from '../../resources/token/types';
+import { ApiErrorResponse, ApiSuccessResponse } from '../types/api';
 import { AnyType } from '../types/utility';
 
 export const HEADERS: Readonly<Record<string, string | boolean>> = {
@@ -53,8 +49,11 @@ export class ApiClient {
     });
 
     http.interceptors.response.use(
-      (response) => response.data,
-      (error: AxiosError) => error.response?.data
+      (response) => ({ ...response.data, status: 'success' }),
+      (error: AxiosError<ApiErrorResponse>) => ({
+        ...error.response?.data,
+        status: 'error'
+      })
     );
 
     this.instance = http;
@@ -78,14 +77,17 @@ export class ApiClient {
     return true;
   }
 
-  request<T = AnyType, R = AxiosResponse<T>>(
+  request<T = AnyType>(
     url: URL,
     config: AxiosRequestConfig = {}
-  ): Promise<R> {
+  ): Promise<ApiSuccessResponse<T> | ApiErrorResponse> {
     return this.http.request({ ...config, url: url.toString() });
   }
 
-  get<T = AnyType>(url: URL, config?: AxiosRequestConfig): Promise<T> {
+  get<T = AnyType>(
+    url: URL,
+    config?: AxiosRequestConfig
+  ): Promise<ApiSuccessResponse<T> | ApiErrorResponse> {
     return this.http.get(url.toString(), config);
   }
 
@@ -93,19 +95,22 @@ export class ApiClient {
     url: URL,
     data?: T,
     config?: AxiosRequestConfig
-  ): Promise<T> {
+  ): Promise<ApiSuccessResponse<T> | ApiErrorResponse> {
     return this.http.post(url.toString(), data, config);
   }
 
-  put<T = AnyType, R = AxiosResponse<T>>(
+  put<T = AnyType>(
     url: URL,
     data?: T,
     config?: AxiosRequestConfig
-  ): Promise<R> {
+  ): Promise<ApiSuccessResponse<T> | ApiErrorResponse> {
     return this.http.put(url.toString(), data, config);
   }
 
-  delete<T = AnyType>(url: URL, config?: AxiosRequestConfig): Promise<T> {
+  delete<T = AnyType>(
+    url: URL,
+    config?: AxiosRequestConfig
+  ): Promise<ApiSuccessResponse<T> | ApiErrorResponse> {
     return this.http.delete(url.toString(), config);
   }
 }

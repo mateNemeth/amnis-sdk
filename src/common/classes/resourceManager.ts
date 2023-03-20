@@ -1,5 +1,10 @@
 import { Base } from '../../resources/base';
-import { Collection, IResourceManager } from '../types/api';
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+  Collection,
+  IResourceManager
+} from '../types/api';
 import { AnyType } from '../types/utility';
 import { ApiClient } from './apiClient';
 
@@ -14,13 +19,17 @@ export abstract class ResourceManager<
     super(apiClient);
   }
 
-  async getAllResources(filters?: F): Promise<Collection<T>> {
+  async getAllResources(
+    filters?: F
+  ): Promise<ApiSuccessResponse<Collection<T>> | ApiErrorResponse> {
     return this.apiClient.get(
       this.urlBuilder.buildUrl([this.apiRoute], filters)
     );
   }
 
-  async getResourceById(id: number): Promise<T> {
+  async getResourceById(
+    id: number
+  ): Promise<ApiSuccessResponse<T> | ApiErrorResponse> {
     return this.apiClient.get(this.urlBuilder.buildUrl([this.apiRoute, id]));
   }
 }
