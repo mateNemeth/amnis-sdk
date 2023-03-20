@@ -1,5 +1,5 @@
 import { Base } from '../../resources/base';
-import { IResourceManager } from '../types/resources';
+import { Collection, IResourceManager } from '../types/api';
 import { AnyType } from '../types/utility';
 import { ApiClient } from './apiClient';
 
@@ -14,7 +14,7 @@ export abstract class ResourceManager<
     super(apiClient);
   }
 
-  async getAllResources(filters?: F): Promise<T[]> {
+  async getAllResources(filters?: F): Promise<Collection<T>> {
     return this.apiClient.get(
       this.urlBuilder.buildUrl([this.apiRoute], filters)
     );
