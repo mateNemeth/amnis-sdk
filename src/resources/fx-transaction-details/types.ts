@@ -11,7 +11,7 @@ export declare type FxTransactionDetail = {
   currencyTo: string;
   amountFrom: string;
   amountTo: string;
-  direction: string | null;
+  direction: 'sell' | 'buy' | null;
   dealDate: string;
   valueDate: string;
   type: string;

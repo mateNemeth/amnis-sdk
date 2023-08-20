@@ -3,7 +3,7 @@ import { PaginationQuery } from '../../common/types/api';
 export declare type Contact = {
   id: number;
   name: string;
-  type: string;
+  type: 'legal_entity' | 'person';
   country: string;
   address: string;
   city: string;
