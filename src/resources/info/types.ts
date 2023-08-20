@@ -1,16 +1,16 @@
-export declare type OverallBalance = {
-  amount: number | null;
-  currency: string;
+export declare type AvailableBalance = {
+  amount: string;
+  currency: string | null;
 };
 
 export declare type Information = {
   id: number;
-  legalForm: string;
-  countryOfIncorporation: string;
-  address: string;
-  city: string;
-  zip: string;
+  legalForm: string | null;
+  countryOfIncorporation: string | null;
+  address: string | null;
+  city: string | null;
+  zip: string | null;
   stateOrProvince: string | null;
   activePackage: 0 | 1 | 2;
-  overallBalance: OverallBalance;
+  availableBalance: AvailableBalance;
 };

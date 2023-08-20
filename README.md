@@ -75,4 +75,4 @@ Every resource request (both collections and single) is returning with a Promise
 
 All the available resource types are fully typed, and available through the client object. 
 
-For full API documentation, please refer to the [original API docs](https://api.amnistreasury.com/here-you-can-find-the-docs/api.html).
+For full API documentation, please refer to the [original API docs](https://developer.amnistreasury.com/).

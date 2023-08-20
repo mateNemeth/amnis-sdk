@@ -1,8 +1,21 @@
 import { DateString } from './utility';
 
 export declare type PaginationQuery = {
+  /**
+   * The number of items per page
+   * Default value: 30
+   */
   itemsPerPage?: number;
+  /**
+   * The collection page number
+   * Default value: 1
+   */
   page?: number;
+  /**
+   * Enable or disable pagination
+   * Default value: true
+   */
+  pagination?: boolean;
 };
 
 export declare type LesserAndGreaterThanFilter<T extends number | DateString> =
@@ -10,6 +23,13 @@ export declare type LesserAndGreaterThanFilter<T extends number | DateString> =
     lt?: T;
     gt?: T;
   };
+
+export declare type LesserOrEqualAndGreaterOrEqualFilter<
+  T extends number | DateString
+> = {
+  lte?: T;
+  gte?: T;
+};
 
 export declare interface IResourceManager<T, F> {
   getResourceById: (
@@ -35,6 +55,7 @@ export declare type Collection<T> = {
 
 export declare type ApiErrorResponse = {
   status: 'error';
+  statusCode: number;
   detail: string;
   title: string;
 };

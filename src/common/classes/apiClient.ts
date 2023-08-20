@@ -50,10 +50,24 @@ export class ApiClient {
 
     http.interceptors.response.use(
       (response) => ({ ...response.data, status: 'success' }),
-      (error: AxiosError<ApiErrorResponse>) => ({
-        ...error.response?.data,
-        status: 'error'
-      })
+      (error: AxiosError<ApiErrorResponse>) => {
+        const status = error.response?.status;
+
+        if (status === 500) {
+          return {
+            detail: 'The server returned a "500 Internal Server Error',
+            title: 'Internal server error',
+            status: 'error',
+            statusCode: status
+          };
+        } else {
+          return {
+            ...error.response?.data,
+            status: 'error',
+            statusCode: status
+          };
+        }
+      }
     );
 
     this.instance = http;
