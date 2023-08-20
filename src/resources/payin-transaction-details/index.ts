@@ -8,5 +8,5 @@ export class PayinTransactionDetails extends ResourceManager<
   PayinTransactionDetail,
   PayinTransactionDetailsFilters
 > {
-  protected apiRoute = 'wallet_transaction_details';
+  protected apiRoute = 'payin_transaction_details';
 }

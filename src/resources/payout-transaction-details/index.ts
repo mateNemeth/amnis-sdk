@@ -8,5 +8,5 @@ export class PayoutTransactionDetails extends ResourceManager<
   PayoutTransactionDetail,
   PayoutTransactionDetailsFilters
 > {
-  protected apiRoute = 'wallet_transaction_details';
+  protected apiRoute = 'payout_transaction_details';
 }

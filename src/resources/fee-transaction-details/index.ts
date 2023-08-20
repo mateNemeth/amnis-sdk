@@ -5,5 +5,5 @@ export class FeeTransactionDetails extends ResourceManager<
   FeeTransactionDetail,
   FeeTransactionDetailsFilters
 > {
-  protected apiRoute = 'wallet_transaction_details';
+  protected apiRoute = 'fee_transaction_details';
 }

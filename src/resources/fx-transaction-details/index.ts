@@ -5,5 +5,5 @@ export class FxTransactionDetails extends ResourceManager<
   FxTransactionDetail,
   FxTransactionDetailsFilters
 > {
-  protected apiRoute = 'wallet_transaction_details';
+  protected apiRoute = 'fx_transaction_details';
 }
