@@ -4,6 +4,7 @@ import { Info } from './resources/info';
 import { TokenService } from './resources/token';
 import { AccessToken } from './resources/token/types';
 import { Transactions } from './resources/transactions';
+import { WalletTransactionDetails } from './resources/wallet-transaction-details';
 
 export class AmnisClient {
   private tokenService: TokenService;
@@ -11,6 +12,7 @@ export class AmnisClient {
   info: Info;
   accounts: Accounts;
   transactions: Transactions;
+  walletTransactionDetails: WalletTransactionDetails;
 
   get accessToken(): AccessToken | undefined {
     return this.apiClient.accessToken;
@@ -22,5 +24,8 @@ export class AmnisClient {
     this.info = new Info(this.apiClient);
     this.accounts = new Accounts(this.apiClient);
     this.transactions = new Transactions(this.apiClient);
+    this.walletTransactionDetails = new WalletTransactionDetails(
+      this.apiClient
+    );
   }
 }

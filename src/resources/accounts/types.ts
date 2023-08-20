@@ -6,7 +6,7 @@ export declare type Account = {
   type: AccountTypes;
   currency: string;
   availableBalance: number;
-  pendingBalance: number;
+  forecastedBalance: number;
 };
 
 export declare type AccountFilters = PaginationQuery & {

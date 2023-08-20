@@ -15,13 +15,14 @@ export declare type TransactionType =
 export declare type Transaction = {
   id: number;
   currency: string;
-  amount: number;
+  amount: string;
   type: TransactionType;
   executionDate: string;
   executed: boolean;
   createdAt: string;
   updatedAt: string;
   account: number;
+  transactionDetailId: number | null;
 };
 
 export declare type TransactionFilters = PaginationQuery & {
@@ -31,4 +32,5 @@ export declare type TransactionFilters = PaginationQuery & {
   abs_amount?: LesserAndGreaterThanFilter<number>;
   createdAt?: LesserAndGreaterThanFilter<DateString>;
   executionDate?: LesserAndGreaterThanFilter<DateString>;
+  includeTransactionDetail?: boolean;
 };
