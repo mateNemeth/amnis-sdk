@@ -1,6 +1,12 @@
 import { ApiClient } from './common/classes/apiClient';
 import { Accounts } from './resources/accounts';
+import { CardTransactionDetails } from './resources/card-transaction-details';
+import { Contacts } from './resources/contacts';
+import { FeeTransactionDetails } from './resources/fee-transaction-details';
+import { FxTransactionDetails } from './resources/fx-transaction-details';
 import { Info } from './resources/info';
+import { PayinTransactionDetails } from './resources/payin-transaction-details';
+import { PayoutTransactionDetails } from './resources/payout-transaction-details';
 import { TokenService } from './resources/token';
 import { AccessToken } from './resources/token/types';
 import { Transactions } from './resources/transactions';
@@ -13,6 +19,12 @@ export class AmnisClient {
   accounts: Accounts;
   transactions: Transactions;
   walletTransactionDetails: WalletTransactionDetails;
+  cardTransactionDetails: CardTransactionDetails;
+  feeTransactionDetails: FeeTransactionDetails;
+  fxTransactionDetails: FxTransactionDetails;
+  payinTransactionDetails: PayinTransactionDetails;
+  payoutTransactionDetails: PayoutTransactionDetails;
+  contacts: Contacts;
 
   get accessToken(): AccessToken | undefined {
     return this.apiClient.accessToken;
@@ -27,5 +39,13 @@ export class AmnisClient {
     this.walletTransactionDetails = new WalletTransactionDetails(
       this.apiClient
     );
+    this.cardTransactionDetails = new CardTransactionDetails(this.apiClient);
+    this.feeTransactionDetails = new FeeTransactionDetails(this.apiClient);
+    this.fxTransactionDetails = new FxTransactionDetails(this.apiClient);
+    this.payinTransactionDetails = new PayinTransactionDetails(this.apiClient);
+    this.payoutTransactionDetails = new PayoutTransactionDetails(
+      this.apiClient
+    );
+    this.contacts = new Contacts(this.apiClient);
   }
 }
