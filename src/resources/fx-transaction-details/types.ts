@@ -3,17 +3,17 @@ import {
   LesserOrEqualAndGreaterOrEqualFilter,
   PaginationQuery
 } from '../../common/types/api';
-import { DateString } from '../../common/types/utility';
+import { AmountString, DateString } from '../../common/types/utility';
 
 export declare type FxTransactionDetail = {
   id: number;
   currencyFrom: string;
   currencyTo: string;
-  amountFrom: string;
-  amountTo: string;
+  amountFrom: AmountString;
+  amountTo: AmountString;
   direction: 'sell' | 'buy' | null;
-  dealDate: string;
-  valueDate: string;
+  dealDate: DateString;
+  valueDate: DateString;
   type: string;
   spotRate: string;
   forwardPoints: string | null;
@@ -25,10 +25,22 @@ export declare type FxTransactionDetail = {
 export declare type FxTransactionDetailsFilters = PaginationQuery & {
   currencyFrom?: string;
   currencyTo?: string;
-  amountFrom?: LesserOrEqualAndGreaterOrEqualFilter<number> &
-    LesserAndGreaterThanFilter<number>;
-  amountTo?: LesserOrEqualAndGreaterOrEqualFilter<number> &
-    LesserAndGreaterThanFilter<number>;
+  /**
+   * Value must match regular expression ^(\d+.\d\d)$
+   */
+  amountFrom?: LesserOrEqualAndGreaterOrEqualFilter<AmountString> &
+    LesserAndGreaterThanFilter<AmountString>;
+  /**
+   * Value must match regular expression ^(\d+.\d\d)$
+   */
+  amountTo?: LesserOrEqualAndGreaterOrEqualFilter<AmountString> &
+    LesserAndGreaterThanFilter<AmountString>;
+  /**
+   * Datestring in the format of YYYY-MM-DD
+   */
   dealDate?: DateString;
+  /**
+   * Datestring in the format of YYYY-MM-DD
+   */
   valueDate?: DateString;
 };

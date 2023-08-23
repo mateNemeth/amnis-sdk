@@ -1,21 +1,12 @@
 export type StringOrNumber = string | number;
 export type AnyType = any;
 
-type zeroToNine = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-type oneToNine = Exclude<zeroToNine, 0>;
 /**
- * Years
+ * Datestring in the format of YYYY-MM-DD
  */
-type YYYY = `19${zeroToNine}${zeroToNine}` | `20${zeroToNine}${zeroToNine}`;
+export type DateString = string;
+
 /**
- * Months
+ * Value must match regular expression ^(\d+.\d\d)$
  */
-type MM = `0${oneToNine}` | `1${0 | 1 | 2}`;
-/**
- * Days
- */
-type DD = `${0}${oneToNine}` | `${1 | 2}${zeroToNine}` | `3${0 | 1}`;
-/**
- * YYYYMMDD
- */
-export declare type DateString = `${YYYY}-${MM}-${DD}`;
+export type AmountString = string;

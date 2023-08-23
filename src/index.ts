@@ -2,6 +2,7 @@ import { ApiClient } from './common/classes/apiClient';
 import { Accounts } from './resources/accounts';
 import { CardTransactionDetails } from './resources/card-transaction-details';
 import { Contacts } from './resources/contacts';
+import { DealRequests } from './resources/deal-request';
 import { FeeTransactionDetails } from './resources/fee-transaction-details';
 import { FxTransactionDetails } from './resources/fx-transaction-details';
 import { Info } from './resources/info';
@@ -25,14 +26,18 @@ export class AmnisClient {
   payinTransactionDetails: PayinTransactionDetails;
   payoutTransactionDetails: PayoutTransactionDetails;
   contacts: Contacts;
+  dealRequests: DealRequests;
 
   get accessToken(): AccessToken | undefined {
     return this.apiClient.accessToken;
   }
 
-  constructor(config: { client_id: string; client_secret: string }) {
+  constructor(
+    config: { client_id: string; client_secret: string },
+    debug_mode = false
+  ) {
     this.tokenService = new TokenService(config);
-    this.apiClient = new ApiClient(this.tokenService);
+    this.apiClient = new ApiClient(this.tokenService, debug_mode);
     this.info = new Info(this.apiClient);
     this.accounts = new Accounts(this.apiClient);
     this.transactions = new Transactions(this.apiClient);
@@ -47,5 +52,6 @@ export class AmnisClient {
       this.apiClient
     );
     this.contacts = new Contacts(this.apiClient);
+    this.dealRequests = new DealRequests(this.apiClient);
   }
 }

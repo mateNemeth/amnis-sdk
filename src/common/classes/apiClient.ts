@@ -16,12 +16,14 @@ export class ApiClient {
   private instance: AxiosInstance | null = null;
   private tokenService: TokenService;
   private _accessToken?: AccessToken;
+  private _debugMode: boolean;
   get accessToken(): AccessToken | undefined {
     return this._accessToken;
   }
 
-  constructor(tokenService: TokenService) {
+  constructor(tokenService: TokenService, debugMode = false) {
     this.tokenService = tokenService;
+    this._debugMode = debugMode;
     this.initToken();
   }
 
@@ -49,24 +51,41 @@ export class ApiClient {
     });
 
     http.interceptors.response.use(
-      (response) => ({ ...response.data, status: 'success' }),
+      (response) => {
+        const newResponse = {
+          ...response.data,
+          status: 'success'
+        };
+        if (this._debugMode) {
+          newResponse.request = response.request;
+        }
+
+        return newResponse;
+      },
       (error: AxiosError<ApiErrorResponse>) => {
         const status = error.response?.status;
 
+        let newResponse: Partial<ApiErrorResponse & { request?: any }> = {
+          status: 'error',
+          statusCode: status
+        };
+
         if (status === 500) {
-          return {
-            detail: 'The server returned a "500 Internal Server Error',
-            title: 'Internal server error',
-            status: 'error',
-            statusCode: status
-          };
+          newResponse.detail =
+            'The server returned a "500 Internal Server Error';
+          newResponse.title = 'Internal server error';
         } else {
-          return {
-            ...error.response?.data,
-            status: 'error',
-            statusCode: status
+          newResponse = {
+            ...newResponse,
+            ...error.response?.data
           };
         }
+
+        if (this._debugMode) {
+          newResponse = { ...newResponse, request: error.request };
+        }
+
+        return newResponse;
       }
     );
 
@@ -105,11 +124,11 @@ export class ApiClient {
     return this.http.get(url.toString(), config);
   }
 
-  post<T = AnyType>(
+  post<T = AnyType, R = AnyType>(
     url: URL,
     data?: T,
     config?: AxiosRequestConfig
-  ): Promise<ApiSuccessResponse<T> | ApiErrorResponse> {
+  ): Promise<ApiSuccessResponse<R> | ApiErrorResponse> {
     return this.http.post(url.toString(), data, config);
   }
 

@@ -1,5 +1,3 @@
-import { DateString } from './utility';
-
 export declare type PaginationQuery = {
   /**
    * The number of items per page
@@ -18,14 +16,13 @@ export declare type PaginationQuery = {
   pagination?: boolean;
 };
 
-export declare type LesserAndGreaterThanFilter<T extends number | DateString> =
-  {
-    lt?: T;
-    gt?: T;
-  };
+export declare type LesserAndGreaterThanFilter<T extends number | string> = {
+  lt?: T;
+  gt?: T;
+};
 
 export declare type LesserOrEqualAndGreaterOrEqualFilter<
-  T extends number | DateString
+  T extends number | string
 > = {
   lte?: T;
   gte?: T;

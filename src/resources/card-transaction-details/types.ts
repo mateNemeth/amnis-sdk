@@ -3,7 +3,7 @@ import {
   LesserOrEqualAndGreaterOrEqualFilter,
   PaginationQuery
 } from '../../common/types/api';
-import { DateString } from '../../common/types/utility';
+import { AmountString, DateString } from '../../common/types/utility';
 
 export declare type Card = {
   id: number;
@@ -20,12 +20,12 @@ export declare type Merchant = {
 export declare type CardTransactionDetail = {
   id: number;
   currency: string;
-  amount: string;
+  amount: AmountString;
   originalCurrency: string;
-  originalAmount: string;
+  originalAmount: AmountString;
   type: string;
-  executionDate: string;
-  settlementDate: string | null;
+  executionDate: DateString;
+  settlementDate: DateString | null;
   status: string;
   card: Card;
   merchant: Merchant;
@@ -33,7 +33,13 @@ export declare type CardTransactionDetail = {
 
 export declare type CardTransactionDetailsFilters = PaginationQuery & {
   currency?: string;
-  amount?: LesserOrEqualAndGreaterOrEqualFilter<number> &
-    LesserAndGreaterThanFilter<number>;
+  /**
+   * Value must match regular expression ^(\d+.\d\d)$
+   */
+  amount?: LesserOrEqualAndGreaterOrEqualFilter<AmountString> &
+    LesserAndGreaterThanFilter<AmountString>;
+  /**
+   * Datestring in the format of YYYY-MM-DD
+   */
   executionDate?: DateString;
 };

@@ -1,4 +1,6 @@
+import { AmountString } from '../../common/types/utility';
+
 export type IOverallBalance = {
-  amount: string;
+  amount: AmountString;
   currency: string;
 };

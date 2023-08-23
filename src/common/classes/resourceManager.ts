@@ -22,9 +22,9 @@ export abstract class ResourceManager<
   async getAllResources(
     filters?: F
   ): Promise<ApiSuccessResponse<Collection<T>> | ApiErrorResponse> {
-    return this.apiClient.get(
-      this.urlBuilder.buildUrl([this.apiRoute], filters)
-    );
+    return this.apiClient.get(this.urlBuilder.buildUrl([this.apiRoute]), {
+      params: filters
+    });
   }
 
   async getResourceById(

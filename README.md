@@ -55,7 +55,7 @@ Example filters for transactions collection
 // Filter for transactions with amount greater than 1000
 const transaction = await client.transactions.getAllResources({
     abs_amount: {
-      gt: 1000
+      gt: '1000.00'
     }    
 });
 
