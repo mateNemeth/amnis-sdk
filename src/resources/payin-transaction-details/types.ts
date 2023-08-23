@@ -3,13 +3,13 @@ import {
   LesserOrEqualAndGreaterOrEqualFilter,
   PaginationQuery
 } from '../../common/types/api';
-import { DateString } from '../../common/types/utility';
+import { AmountString, DateString } from '../../common/types/utility';
 
 export declare type PayinTransactionDetail = {
   id: number;
   currency: string;
-  amount: string;
-  executionDate: string | null;
+  amount: AmountString;
+  executionDate: DateString | null;
   comment: string | null;
   subType: string;
   payerName: string | null;
@@ -17,7 +17,13 @@ export declare type PayinTransactionDetail = {
 
 export declare type PayinTransactionDetailsFilters = PaginationQuery & {
   currency?: string;
-  amount?: LesserOrEqualAndGreaterOrEqualFilter<number> &
-    LesserAndGreaterThanFilter<number>;
+  /**
+   * Value must match regular expression ^(\d+.\d\d)$
+   */
+  amount?: LesserOrEqualAndGreaterOrEqualFilter<AmountString> &
+    LesserAndGreaterThanFilter<AmountString>;
+  /**
+   * Datestring in the format of YYYY-MM-DD
+   */
   executionDate?: LesserAndGreaterThanFilter<DateString>;
 };

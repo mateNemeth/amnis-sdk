@@ -1,5 +1,7 @@
+import { AmountString } from '../../common/types/utility';
+
 export declare type AvailableBalance = {
-  amount: string;
+  amount: AmountString;
   currency: string | null;
 };
 
