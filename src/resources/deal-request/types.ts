@@ -1,7 +1,15 @@
 import { AmountString, DateString } from '../../common/types/utility';
 
 export declare type DealRequest = {
-  id: number;
+  id: string;
+  currencyFrom: string;
+  currencyTo: string;
+  amountFrom: AmountString;
+  amountTo: AmountString;
+  valueDate: DateString;
+  spotRate: string;
+  platformRate: string;
+  forwardPoints: string;
 };
 
 export declare type CreateDealRequest = {

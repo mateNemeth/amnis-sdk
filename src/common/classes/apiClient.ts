@@ -124,11 +124,11 @@ export class ApiClient {
     return this.http.get(url.toString(), config);
   }
 
-  post<T = AnyType>(
+  post<T = AnyType, R = AnyType>(
     url: URL,
     data?: T,
     config?: AxiosRequestConfig
-  ): Promise<ApiSuccessResponse<T> | ApiErrorResponse> {
+  ): Promise<ApiSuccessResponse<R> | ApiErrorResponse> {
     return this.http.post(url.toString(), data, config);
   }
 

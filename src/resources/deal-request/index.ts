@@ -5,13 +5,16 @@ import { CreateDealRequest, DealRequest } from './types';
 export class DealRequests extends Base {
   protected apiRoute = 'deal_request';
 
-  public createResource(data: CreateDealRequest) {
+  public createResource(
+    data: CreateDealRequest
+  ): Promise<ApiSuccessResponse<DealRequest> | ApiErrorResponse> {
     return this.apiClient.post(this.urlBuilder.buildUrl([this.apiRoute]), data);
   }
 
-  public getResourceById(
-    id: number
-  ): Promise<ApiSuccessResponse<DealRequest> | ApiErrorResponse> {
-    return this.apiClient.get(this.urlBuilder.buildUrl([this.apiRoute, id]));
-  }
+  // TODO
+  // public getResourceById(
+  //   id: string
+  // ): Promise<ApiSuccessResponse<DealRequest> | ApiErrorResponse> {
+  //   return this.apiClient.get(this.urlBuilder.buildUrl([this.apiRoute, id]));
+  // }
 }
